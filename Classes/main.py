@@ -1,8 +1,8 @@
 import pygame
-import Settings
-import Gun
-import Menu
-import GameContext
+from Settings import Settings
+from Gun import Gun
+from Menu import Menu
+from GameContext import GameContext
 
 def main():
     pygame.init()
