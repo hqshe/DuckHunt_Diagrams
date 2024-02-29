@@ -91,3 +91,27 @@ class Menu:
             self.context.clicked = True
             self.context.write_values = True
 
+    def draw_pause(self):
+        self.context.level = 0
+        mouse_pos = pygame.mouse.get_pos()
+        clicks = pygame.mouse.get_pressed()
+        resume_button = pygame.rect.Rect((170, 661), (260, 100))
+        menu_button = pygame.rect.Rect((475, 661), (260, 100))
+        self.context.screen.blit(self.context.pause_img, (0, 0))
+        if resume_button.collidepoint(mouse_pos) and clicks[0] and not self.context.clicked:
+            self.context.level = self.context.resume_level
+            self.context.pause = False
+            self.context.clicked = True
+
+        if menu_button.collidepoint(mouse_pos) and clicks[0] and not self.context.clicked:
+            pygame.mixer.music.play()
+            self.context.level = 0
+            self.context.pause = False
+            self.context.menu = True
+            self.context.points = 0
+            self.context.total_shots = 0
+            self.context.time_passed = 0
+            self.context.time_remaining = 0
+            self.context.clicked = True
+            self.context.new_coords = True
+
