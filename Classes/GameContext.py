@@ -104,3 +104,25 @@ class GameContext:
         if self.mode == 2:
             mode_text = self.font.render(f'Time Remaining {self.time_remaining}', True, 'black')
         self.screen.blit(mode_text, (320, 741))
+
+    def move_level(self):
+        if self.level == 1 or self.level == 2:
+            max_val = 3
+        else:
+            max_val = 4
+
+        if self.level == 1:
+            coords = self.one_coords
+        elif self.level == 2:
+            coords = self.two_coords
+        elif self.level == 3:
+            coords = self.three_coords
+
+        for i in range(max_val):
+            for j in range(len(coords[i])):
+                my_coords = coords[i][j]
+                if my_coords[0] < -150:
+                    coords[i][j] = (self.WIDTH, my_coords[1])
+                else:
+                    coords[i][j] = (my_coords[0] - 2 ** i, my_coords[1])
+        return coords
