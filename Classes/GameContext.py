@@ -89,3 +89,18 @@ class GameContext:
                 self.screen.blit(self.target_images[self.level - 1][i], coords[i][j])
 
         return target_rects
+
+    def draw_score(self):
+        points_text = self.font.render(f'Points: {self.points}', True, 'black')
+        self.screen.blit(points_text, (320, 660))
+        shots_text = self.font.render(f'Total Shots: {self.total_shots}', True, 'black')
+        self.screen.blit(shots_text, (320, 687))
+        time_text = self.font.render(f'Time Elapsed: {self.time_passed}', True, 'black')
+        self.screen.blit(time_text, (320, 714))
+        if self.mode == 0:
+            mode_text = self.font.render(f'Freeplay!', True, 'black')
+        if self.mode == 1:
+            mode_text = self.font.render(f'Ammo Remaining: {self.ammo}', True, 'black')
+        if self.mode == 2:
+            mode_text = self.font.render(f'Time Remaining {self.time_remaining}', True, 'black')
+        self.screen.blit(mode_text, (320, 741))
