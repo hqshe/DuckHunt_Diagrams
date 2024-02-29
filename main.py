@@ -4,6 +4,7 @@ from Classes.Gun import Gun
 from Classes.Menu import Menu
 from Classes.GameContext import GameContext
 
+
 def main():
     pygame.init()
     settings = Settings()
@@ -113,7 +114,8 @@ def main():
 
         pygame.display.flip()
 
-        pygame.quit()
+    pygame.quit()
 
-    if __name__ == "__main__":
-        main()
+
+if __name__ == "__main__":
+    main()
