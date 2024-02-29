@@ -73,3 +73,19 @@ class GameContext:
             my_list = self.targets[3]
             for j in range(my_list[i]):
                 self.three_coords[i].append((self.WIDTH // (my_list[i]) * j, 300 - (i * 100) + 30 * (j % 2)))
+
+    def draw_level(self, coords):
+        if self.level == 1:
+            target_rects = [[], [], []]
+        elif self.level == 2:
+            target_rects = [[], [], []]
+        elif self.level == 3:
+            target_rects = [[], [], [], []]
+
+        for i in range(len(coords)):
+            for j in range(len(coords[i])):
+                target_rects[i].append(
+                    pygame.rect.Rect((coords[i][j][0] + 20, coords[i][j][1]), (60 - i * 12, 60 - i * 12)))
+                self.screen.blit(self.target_images[self.level - 1][i], coords[i][j])
+
+        return target_rects
