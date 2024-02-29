@@ -2,4 +2,5 @@ import pygame
 import math
 
 class Gun:
-    pass
+    def __init__(self, context):
+        self.context = context
