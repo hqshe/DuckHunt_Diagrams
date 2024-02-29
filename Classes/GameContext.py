@@ -1,4 +1,59 @@
 import pygame
 
+
 class GameContext:
-    pass
+    def __init__(self, settings):
+        self.settings = settings
+        self.timer = pygame.time.Clock()
+        self.font = pygame.font.Font('../assets/font/myFont.ttf', 32)
+        self.big_font = pygame.font.Font('../assets/font/myFont.ttf', 60)
+        self.WIDTH = settings.width
+        self.HEIGHT = settings.height
+        self.screen = pygame.display.set_mode([self.WIDTH, self.HEIGHT])
+        self.bgs = [pygame.image.load(f'../assets/bgs/{i}.png') for i in range(1, 4)]
+        self.banners = [pygame.image.load(f'../assets/banners/{i}.png') for i in range(1, 4)]
+        self.guns = [pygame.transform.scale(pygame.image.load(f'../assets/guns/{i}.png'), (100, 100)) for i in
+                     range(1, 4)]
+        self.target_images = [[pygame.transform.scale(
+            pygame.image.load(f'../assets/targets/{i}/{j}.png'),
+            (120 - (j * 18), 80 - (j * 12))) for j in range(1, 5 if i == 3 else 4)] for i in range(1, 4)]
+
+        self.targets = settings.targets
+        self.level = 0
+        self.points = 0
+        self.total_shots = 0
+        self.mode = 0  # 0 = freeplay, 1 - accuracy, 2 - timed
+        self.ammo = 0
+        self.time_passed = 0
+        self.time_remaining = 0
+        self.counter = 1
+
+        self.file = open('../high_scores.txt', 'r')
+        self.read_file = self.file.readlines()
+        self.file.close()
+
+        self.best_freeplay = int(self.read_file[0])
+        self.best_ammo = int(self.read_file[1])
+        self.best_timed = int(self.read_file[2])
+        self.shot = False
+        self.menu = True
+        self.game_over = False
+        self.pause = False
+        self.clicked = False
+        self.write_values = False
+        self.new_coords = True
+        self.one_coords = [[], [], []]
+        self.two_coords = [[], [], []]
+        self.three_coords = [[], [], [], []]
+        self.menu_img = pygame.image.load(f'../assets/menus/mainMenu.png')
+        self.game_over_img = pygame.image.load(f'../assets/menus/gameOver.png')
+        self.pause_img = pygame.image.load(f'../assets/menus/pause.png')
+        self.resume_level = 0
+        self.plate_sound = pygame.mixer.Sound('../assets/sounds/Broken plates.wav')
+        self.plate_sound.set_volume(0.2)
+        self.bird_sound = pygame.mixer.Sound('../assets/sounds/Drill Gear.mp3')
+        self.bird_sound.set_volume(0.2)
+        self.laser_sound = pygame.mixer.Sound('../assets/sounds/Laser Gun.wav')
+        self.laser_sound.set_volume(0.3)
+        pygame.mixer.init()
+        pygame.mixer.music.load('../assets/sounds/bg_music.mp3')
