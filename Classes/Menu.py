@@ -1,4 +1,5 @@
 import pygame
 
 class Menu:
-    pass
+    def __init__(self, context):
+        self.context = context
