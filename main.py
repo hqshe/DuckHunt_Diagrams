@@ -50,3 +50,4 @@ def main():
             context.three_coords = context.move_level()
             if context.shot:
                 context.three_coords = gun.check_shot(context.target_boxes, context.three_coords)
+                context.shot = False
