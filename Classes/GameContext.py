@@ -60,17 +60,17 @@ class GameContext:
 
     def generate_enemy_coordinates(self):
         for i in range(3):
-            my_list = self.targets[1]
+            my_list = self.targets[0]
             for j in range(my_list[i]):
                 self.one_coords[i].append((self.WIDTH // (my_list[i]) * j, 300 - (i * 150) + 30 * (j % 2)))
 
         for i in range(3):
-            my_list = self.targets[2]
+            my_list = self.targets[1]
             for j in range(my_list[i]):
                 self.two_coords[i].append((self.WIDTH // (my_list[i]) * j, 300 - (i * 150) + 30 * (j % 2)))
 
         for i in range(4):
-            my_list = self.targets[3]
+            my_list = self.targets[2]
             for j in range(my_list[i]):
                 self.three_coords[i].append((self.WIDTH // (my_list[i]) * j, 300 - (i * 100) + 30 * (j % 2)))
 
