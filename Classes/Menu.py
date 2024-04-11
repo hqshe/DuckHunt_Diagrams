@@ -1,5 +1,6 @@
 import pygame
 
+
 class Menu:
     def __init__(self, context):
         self.context = context
@@ -114,4 +115,3 @@ class Menu:
             self.context.time_remaining = 0
             self.context.clicked = True
             self.context.new_coords = True
-

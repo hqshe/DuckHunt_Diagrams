@@ -98,11 +98,11 @@ class GameContext:
         time_text = self.font.render(f'Time Elapsed: {self.time_passed}', True, 'black')
         self.screen.blit(time_text, (320, 714))
         if self.mode == 0:
-            mode_text = self.font.render(f'Freeplay!', True, 'black')
+            mode_text = self.font.render('Freeplay!', True, 'black')
         if self.mode == 1:
-            mode_text = self.font.render(f'Ammo Remaining: {self.ammo}', True, 'black')
+            mode_text = self.font.render('Ammo Remaining: {self.ammo}', True, 'black')
         if self.mode == 2:
-            mode_text = self.font.render(f'Time Remaining {self.time_remaining}', True, 'black')
+            mode_text = self.font.render('Time Remaining {self.time_remaining}', True, 'black')
         self.screen.blit(mode_text, (320, 741))
 
     def move_level(self):

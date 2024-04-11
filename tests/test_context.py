@@ -1,4 +1,3 @@
-import os
 import pygame
 import pytest
 from Classes.GameContext import GameContext
@@ -68,4 +67,3 @@ def test_move_level(mock_game_context, level, initial_coords, expected_coords):
     new_coords = mock_game_context.move_level()
 
     assert new_coords == expected_coords
-
