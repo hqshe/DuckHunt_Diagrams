@@ -31,6 +31,10 @@ jobs:
           echo "SDL_VIDEODRIVER=dummy" >> $GITHUB_ENV
           echo "SDL_AUDIODRIVER=disk" >> $GITHUB_ENV
 
+      - name: Run Flake8 Linting
+        run: |
+          flake8
+
       - name: Run test suite
         run: |
           pytest -v
