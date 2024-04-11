@@ -3,6 +3,7 @@ from unittest.mock import MagicMock
 import pygame
 from Classes.Menu import Menu
 
+
 @pytest.fixture
 def mock_context():
     context = MagicMock()
@@ -19,9 +20,11 @@ def mock_context():
     pygame.rect.Rect = MagicMock(return_value=MagicMock())
     return context
 
+
 @pytest.fixture
 def menu(mock_context):
     return Menu(mock_context)
+
 
 def test_draw_game_over_switches_to_menu_on_menu_button_click(menu, mock_context):
     mock_context.menu = False
@@ -33,6 +36,8 @@ def test_draw_game_over_switches_to_menu_on_menu_button_click(menu, mock_context
     assert mock_context.menu == True
     assert mock_context.game_over == False
     assert mock_context.clicked == True
+
+
 def test_draw_menu_switches_to_freeplay_on_freeplay_button_click(menu, mock_context):
     mock_context.menu = True
     pygame.mouse.get_pos.return_value = (200, 550)
@@ -44,6 +49,7 @@ def test_draw_menu_switches_to_freeplay_on_freeplay_button_click(menu, mock_cont
     assert mock_context.level == 1
     assert mock_context.clicked == True
     assert mock_context.new_coords == True
+
 
 def test_draw_pause_resumes_game_on_resume_button_click(menu, mock_context):
     mock_context.pause = True
