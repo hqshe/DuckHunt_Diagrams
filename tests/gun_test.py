@@ -1,7 +1,7 @@
 import pygame
 import pytest
-import os
 from Classes.Gun import Gun
+
 
 class MockSound:
     def __init__(self):
@@ -13,6 +13,7 @@ class MockSound:
     def was_play_called(self):
         return self.play_called
 
+
 # Макет контексту, що імітує необхідний інтерфейс
 class MockContext:
     WIDTH = 800
@@ -22,6 +23,7 @@ class MockContext:
     guns = [pygame.Surface((10, 10)) for _ in range(3)]  # Мок-об'єкти для зображень зброї
     screen = pygame.Surface((WIDTH, HEIGHT))  # Створюємо поверхню для макета екрана
     bird_sound = MockSound()
+
 
 class MockTarget:
     def __init__(self, width=800, height=600, targets=[[], [], []]):
@@ -41,6 +43,7 @@ def gun():
     context = MockContext()
     return Gun(context)
 
+
 # Тест для метода draw_gun
 def test_draw_gun(gun):
     # Симулюємо позицію миші і натискання
@@ -48,6 +51,7 @@ def test_draw_gun(gun):
     # Викликаємо метод, очікуємо, що не викличе помилок і змінить стан
     gun.draw_gun()
     # Тут можна додати перевірки на зміни стану контексту або виклик методів
+
 
 # Тест для метода check_shot
 def test_check_shot(gun):
@@ -61,9 +65,11 @@ def test_check_shot(gun):
     # Перевіряємо, що були нараховані очки
     assert gun.context.points == 10
 
+
 def test_level_change(gun):
     gun.context.level = 2  # Змінюємо рівень
     assert gun.context.level == 2  # Перевіряємо, чи рівень змінився
+
 
 def test_level_change_updates_gun(gun):
     # Встановлюємо рівень 2
@@ -73,6 +79,7 @@ def test_level_change_updates_gun(gun):
     # Перевірки можуть включати перевірку зміненої графіки зброї, що вимагатиме додаткового коду для перевірки стану screen
     assert gun.context.guns[gun.context.level - 1] == gun.context.guns[1]
 
+
 def test_draw_gun_at_different_mouse_positions(gun):
     pygame.mouse.set_pos([100, 500])  # Встановлюємо позицію миші зліва
     gun.draw_gun()
@@ -81,6 +88,7 @@ def test_draw_gun_at_different_mouse_positions(gun):
     pygame.mouse.set_pos([700, 500])  # Встановлюємо позицію миші справа
     gun.draw_gun()
     # Аналогічно перевіряємо відмальовування або логіку в залежності від зміни позиції миші
+
 
 def test_sound_play_based_on_level(gun):
     gun.context.level = 1
@@ -101,6 +109,3 @@ def test_sound_play_based_on_level(gun):
     gun.context.laser_sound = MockSound()
     gun.check_shot([[MockTarget()]], [[(100, 100)]])
     assert gun.context.laser_sound.was_play_called()  # Перевіряємо, чи відтворився лазерний звук
-
-
-
