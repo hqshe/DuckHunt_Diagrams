@@ -1,7 +1,6 @@
 import os
 import pygame
 import pytest
-from unittest.mock import Mock
 from Classes.GameContext import GameContext
 
 
@@ -53,21 +52,20 @@ def test_draw_score(mock_game_context):
 
 
 @pytest.mark.parametrize("level, initial_coords, expected_coords", [
-    (1, [[(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)]], [(99, 200), (299, 400), (499, 600)]),
-    (2, [[(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)]], [(99, 200), (299, 400), (499, 600)]),
-    (3, [[(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)]], [(99, 200), (299, 400), (499, 600),(499, 600)])
+    (1, [[(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)]], [[(99, 200), (299, 400), (499, 600)], [(98, 200), (298, 400), (498, 600)], [(96, 200), (296, 400), (496, 600)]]),
+    (2, [[(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)]], [[(99, 200), (299, 400), (499, 600)], [(98, 200), (298, 400), (498, 600)], [(96, 200), (296, 400), (496, 600)]]),
+    (3, [[(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)], [(100, 200), (300, 400), (500, 600)]], [[(99, 200), (299, 400), (499, 600)], [(98, 200), (298, 400), (498, 600)], [(96, 200), (296, 400), (496, 600)], [(92, 200), (292, 400), (492, 600)]])
 ])
 def test_move_level(mock_game_context, level, initial_coords, expected_coords):
     mock_game_context.level = level
     if level == 1:
         mock_game_context.one_coords = initial_coords
-    if level == 2:
+    elif level == 2:
         mock_game_context.two_coords = initial_coords
-    if level == 3:
+    elif level == 3:
         mock_game_context.three_coords = initial_coords
 
     new_coords = mock_game_context.move_level()
 
-    for i in range(len(new_coords)):
-        assert len(new_coords) == len(expected_coords)
+    assert new_coords == expected_coords
 
