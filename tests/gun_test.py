@@ -4,8 +4,14 @@ import os
 from Classes.Gun import Gun
 
 class MockSound:
+    def __init__(self):
+        self.play_called = False  # Додатковий атрибут для відстеження стану виклику методу play
+
     def play(self):
-        pass  # Метод play, який нічого не робить
+        self.play_called = True  # Позначаємо, що метод play було викликано
+
+    def was_play_called(self):
+        return self.play_called
 
 # Макет контексту, що імітує необхідний інтерфейс
 class MockContext:
@@ -76,19 +82,25 @@ def test_draw_gun_at_different_mouse_positions(gun):
     gun.draw_gun()
     # Аналогічно перевіряємо відмальовування або логіку в залежності від зміни позиції миші
 
-# def test_sound_play_based_on_level(gun):
-#     gun.context.level = 1
-#     gun.check_shot([[MockTarget()]], [[(100, 100)]])
-#     gun.context.bird_sound.play.assert_called_once()  # Переконуємось, що відтворився звук для пташки
-#
-#     gun.context.level = 2
-#     gun.context.plate_sound = MockSound()
-#     gun.check_shot([[MockTarget()]], [[(100, 100)]])
-#     gun.context.plate_sound.play.assert_called_once()  # Переконуємось, що відтворився звук для тарілки
-#
-#     gun.context.level = 3
-#     gun.context.laser_sound = MockSound()
-#     gun.check_shot([[MockTarget()]], [[(100, 100)]])
-#     gun.context.laser_sound.play.assert_called_once()  # Переконуємось, що відтворився лазерний звук
+def test_sound_play_based_on_level(gun):
+    gun.context.level = 1
+    gun.check_shot([[MockTarget()]], [[(100, 100)]])
+    assert gun.context.bird_sound.was_play_called()  # Перевіряємо, чи відтворився звук для пташки
+
+    # Скидаємо стан перед наступним тестом
+    gun.context.bird_sound.play_called = False
+
+    gun.context.level = 2
+    gun.context.plate_sound = MockSound()
+    gun.check_shot([[MockTarget()]], [[(100, 100)]])
+    assert gun.context.plate_sound.was_play_called()  # Перевіряємо, чи відтворився звук для тарілки
+
+    # Повторюємо для рівня 3
+    gun.context.plate_sound.play_called = False
+    gun.context.level = 3
+    gun.context.laser_sound = MockSound()
+    gun.check_shot([[MockTarget()]], [[(100, 100)]])
+    assert gun.context.laser_sound.was_play_called()  # Перевіряємо, чи відтворився лазерний звук
+
 
 
