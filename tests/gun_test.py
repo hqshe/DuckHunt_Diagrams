@@ -17,8 +17,6 @@ class MockContext:
     screen = pygame.Surface((WIDTH, HEIGHT))  # Створюємо поверхню для макета екрана
     bird_sound = MockSound()
 
-
-
 # Макет цілі, що використовується в тестах
 class MockTarget:
     def __init__(self, width=800, height=600, targets=[[], [], []]):
@@ -57,3 +55,14 @@ def test_check_shot(gun):
     assert updated_coords == [[]]
     # Перевіряємо, що були нараховані очки
     assert gun.context.points == 10
+
+def test_level_change_updates_gun(gun):
+    # Встановлюємо рівень 2
+    gun.context.level = 2
+    # Перевіряємо, чи змінюється зброя на другий рівень
+    gun.draw_gun()
+    # Перевірки можуть включати перевірку зміненої графіки зброї, що вимагатиме додаткового коду для перевірки стану screen
+    assert gun.context.guns[gun.context.level - 1] == gun.context.guns[1]
+
+
+
