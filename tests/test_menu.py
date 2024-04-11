@@ -3,7 +3,7 @@ import pygame
 from Classes.Menu import Menu
 from Classes.GameContext import GameContext
 
-class MockSettings:
+class MockSetting:
     def __init__(self, width=800, height=600, targets=[[], [], []]):
         self.width = width
         self.height = height
@@ -13,7 +13,7 @@ class MockSettings:
 @pytest.fixture
 def mock_context():
     pygame.init()
-    mock_settings = MockSettings(width=1024, height=768, targets=[[3, 4, 5], [3, 4, 5], [15, 12, 8, 3]])
+    mock_settings = MockSetting(width=1024, height=768, targets=[[3, 4, 5], [3, 4, 5], [15, 12, 8, 3]])
     game_context = GameContext(mock_settings)
     return game_context
 
